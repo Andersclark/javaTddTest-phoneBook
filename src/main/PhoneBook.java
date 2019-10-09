@@ -2,6 +2,7 @@ package main;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -64,8 +65,15 @@ public class PhoneBook {
      * @param name : The partial name to look for.
      * @return a List of all the contacts partially matching the name.
      */
-    public List<Person> searchPersonByName(String name) {
-        return null;
+    public List<Person> searchPersonByName(String nameSearch) {
+		List<Person> resultList = new ArrayList<>();
+		if(nameSearch.equals(""))return resultList;
+		for (Person person : addressBook) {
+			if (person.getName().matches(nameSearch)) {
+				resultList.add(person);
+			}
+		}
+        return resultList;
     }
 
 	/**

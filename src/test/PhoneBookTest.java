@@ -14,6 +14,7 @@ public class PhoneBookTest {
         constructorTest();
         addContactTest();
         findPersonByNameTest();
+        searchPersonByNameTest();
     }
 
     public void constructorTest() {
@@ -96,12 +97,11 @@ public class PhoneBookTest {
         assert book.getAddressBook().size() == 1;
     }
 
-
     public void findPersonByNameTest() {
         phoneBook = new PhoneBook();
 
         List<Person> peopleWithTheNameHej = phoneBook.findPersonByName("Hej");
-        assert(peopleWithTheNameHej.size() == 0);
+        assert (peopleWithTheNameHej.size() == 0);
 
 
         // Then add a person
@@ -110,10 +110,31 @@ public class PhoneBookTest {
         phoneBook.addContact(p);
         peopleWithTheNameHej = phoneBook.findPersonByName("Hej");
         assert(peopleWithTheNameHej.size() == 0);
+    }
+
+    public void searchPersonByNameTest(){
+        // Test empty searchstring
+        // Should return empty list.
+        phoneBook = new PhoneBook();
 
 
+        String searchString = "";
+        List<Person> result = phoneBook.searchPersonByName(searchString);
+        assert(result.isEmpty());
 
-    public void searchPersonByNameTest() {
+        // Test searchstring with no match
+        // Should return empty list (no match)
+        searchString = "Hej";
+        result = phoneBook.searchPersonByName(searchString);
+        assert(result.size()==0);
+
+        // Test searchstring with match
+        // Should return list containing matching Person
+        Person p = new Person("Hej", "","","",1,new Date());
+        phoneBook.addContact(p);
+        result = phoneBook.searchPersonByName(searchString);
+
+
     }
 
     public void getContactTest() {}
